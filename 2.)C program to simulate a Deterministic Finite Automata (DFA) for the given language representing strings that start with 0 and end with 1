@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <string.h>
+int transition(int state, char symbol) {
+    if (state == 0 && symbol == '0') {
+        return 1;
+    } else if (state == 1 && symbol == '0') {
+        return 1;
+    } else if (state == 1 && symbol == '1') {
+        return 2;
+    } else if (state == 2) {
+        return 3;
+    } else if (state == 3 && symbol == '0') {
+        return 3;
+    } else if (state == 3 && symbol == '1') {
+        return 3;
+    } else {
+        return -1;
+    }
+}
+int main() {
+    char input[10];
+    int state = 0;
+    int i, j;
+
+    printf("Enter a string that starts with 0 and ends with 1: ");
+    scanf("%s", input);
+
+    for (i = 0; i < strlen(input); i++) {
+        int next_state = transition(state, input[i]);
+        if (next_state == -1) {
+            printf("String is not accepted.\n");
+            return 0;
+        }
+        state = next_state;
+    }
+
+    if (state == 3) {
+        printf("String is accepted.\n");
+    } else {
+        printf("String is not accepted.\n");
+    }
+
+    return 0;
+}
